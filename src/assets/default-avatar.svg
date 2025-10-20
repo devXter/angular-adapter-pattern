@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="64" fill="#e0e0e0"/>
+
+  <!-- User head -->
+  <circle cx="64" cy="48" r="20" fill="#9e9e9e"/>
+
+  <!-- User body -->
+  <path d="M 64 68 C 44 68 28 84 28 104 L 28 128 C 28 128 44 128 64 128 C 84 128 100 128 100 128 L 100 104 C 100 84 84 68 64 68 Z" fill="#9e9e9e"/>
+</svg>

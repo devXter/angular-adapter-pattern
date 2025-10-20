@@ -1,1 +1,31 @@
-<p>user-card works!</p>
+<section class="rounded-lg bg-white p-6 shadow-md transition-shadow hover:shadow-lg">
+  <div class="flex items-start gap-4">
+    <img
+      class="w-16 rounded-full object-cover"
+      [ngSrc]="user().avatar"
+      [alt]="user().name"
+      width="64"
+      height="64"
+    />
+
+    <div class="flex-1">
+      <div class="mb-2 flex items-start justify-between">
+        <h3 class="text-lg font-bold text-gray-900">{{ user().name }}</h3>
+
+        <span [class]="'rounded-full px-2 py-1 text-xs font-semibold ' + getSourceBadgeColor()">
+          {{ user().source }}
+        </span>
+      </div>
+
+      <p class="mb-2 text-sm text-gray-600">{{ user().email }}</p>
+
+      @if (user().joinedDate) {
+        <p class="text-xs- text-gray-500">
+          📅 Ingresó {{ user().joinedDate | date: 'mediumDate' }}
+        </p>
+      } @else {
+        <p class="text-xs text-gray-400 italic">📅 Fecha de ingreso no disponible</p>
+      }
+    </div>
+  </div>
+</section>

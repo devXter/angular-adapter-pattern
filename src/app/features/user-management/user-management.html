@@ -1,1 +1,44 @@
-<p>user-management works!</p>
+<section class="min-h-screen bg-gray-50 p-6">
+  <div class="mx-auto max-w-6xl">
+    <!-- Header -->
+    <header class="mb-6 rounded-lg bg-white p-6 shadow-lg">
+      <h1 class="mb-2 text-3xl font-bold text-gray-900">Patrón Adapter - Dashboard de usuarios</h1>
+      <p class="text-gray-600">
+        Angular 20+ con múltiples fuentes de datos adaptadas a un modelo unificado
+      </p>
+    </header>
+
+    <!-- Grid de usuarios -->
+    <section class="mb-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      @for (user of users(); track user.id) {
+        <app-user-card [user]="user"></app-user-card>
+      }
+    </section>
+
+    <!-- Información del patrón -->
+    <section class="rounded-lg bg-white p-6 shadow-lg">
+      <h2 class="mb-4 text-xl font-bold text-gray-900">💡 Conceptos clave del Adapter Pattern:</h2>
+
+      <article class="grid gap-4 text-sm text-gray-700 md:grid-cols-2">
+        <div class="space-y-2">
+          <p><strong>✓ Fuentes de datos:</strong></p>
+          <ul class="ml-4 space-y-1">
+            <li>🟣 GitHub API (avatar_url, created_at, login)</li>
+            <li>🔵 API Interna (profileImage, registeredAt, fullName)</li>
+            <li>🟢 JSONPlaceholder (sin avatar ni fecha)</li>
+          </ul>
+        </div>
+
+        <div class="space-y-2">
+          <p><strong>✓ Ventajas:</strong></p>
+          <ul class="ml-4 space-y-1">
+            <li>Modelo interno unificado (User)</li>
+            <li>Adapters encapsulan la conversión</li>
+            <li>Fácil agregar nuevas fuentes</li>
+            <li>Cambios en APIs externas solo afectan su Adapter</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+  </div>
+</section>
