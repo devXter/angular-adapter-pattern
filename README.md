@@ -38,6 +38,7 @@ Este proyecto es una **aplicación de gestión de usuarios** que integra datos d
 ### Vista Previa
 
 La aplicación muestra una grilla de tarjetas de usuario con:
+
 - Avatar del usuario
 - Nombre completo
 - Correo electrónico
@@ -50,27 +51,27 @@ La aplicación muestra una grilla de tarjetas de usuario con:
 
 ### Framework y Core
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| **Angular** | 20.3.0 | Framework principal con detección de cambios zoneless |
-| **TypeScript** | 5.9.2 | Lenguaje de programación con tipado estricto |
-| **RxJS** | 7.8.0 | Programación reactiva |
+| Tecnología     | Versión | Propósito                                             |
+|----------------|---------|-------------------------------------------------------|
+| **Angular**    | 20.3.0  | Framework principal con detección de cambios zoneless |
+| **TypeScript** | 5.9.2   | Lenguaje de programación con tipado estricto          |
+| **RxJS**       | 7.8.0   | Programación reactiva                                 |
 
 ### UI y Estilos
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| **Tailwind CSS** | 4.1.14 | Framework de utilidades CSS |
-| **PostCSS** | 8.5.6 | Transformación de CSS |
-| **Prettier** | 3.6.2 | Formateo de código con soporte Tailwind |
+| Tecnología       | Versión | Propósito                               |
+|------------------|---------|-----------------------------------------|
+| **Tailwind CSS** | 4.1.14  | Framework de utilidades CSS             |
+| **PostCSS**      | 8.5.6   | Transformación de CSS                   |
+| **Prettier**     | 3.6.2   | Formateo de código con soporte Tailwind |
 
 ### Testing y Desarrollo
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
-| **Karma** | 6.4.0 | Test runner |
-| **Jasmine** | 5.9.0 | Framework de testing |
-| **Angular CLI** | 20.3.6 | Herramientas de desarrollo y build |
+| Tecnología      | Versión | Propósito                          |
+|-----------------|---------|------------------------------------|
+| **Karma**       | 6.4.0   | Test runner                        |
+| **Jasmine**     | 5.9.0   | Framework de testing               |
+| **Angular CLI** | 20.3.6  | Herramientas de desarrollo y build |
 
 ### Características Modernas de Angular 20+
 
@@ -87,39 +88,39 @@ El proyecto sigue una **arquitectura basada en características** con tres capas
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                      CAPA DE APLICACIÓN                      │
-│                  (Bootstrap y componente raíz)               │
+│                      CAPA DE APLICACIÓN                     │
+│                  (Bootstrap y componente raíz)              │
 └──────────────────────────┬──────────────────────────────────┘
                            │
 ┌──────────────────────────┴──────────────────────────────────┐
-│                     CAPA DE FEATURES                         │
+│                     CAPA DE FEATURES                        │
 │        (Módulos de características - User Management)       │
-│                                                              │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
-│  │ Components   │  │   Services   │  │  Models/DTOs │     │
-│  │              │  │              │  │              │     │
-│  │ UserCard     │  │  UserData    │  │ GitHub DTO   │     │
-│  │ UserMgmt     │  │              │  │ Internal DTO │     │
-│  └──────────────┘  └──────────────┘  │ Twitter DTO  │     │
-│                                       │ JSONPh. DTO  │     │
-│                                       └──────────────┘     │
+│                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │ Components   │  │   Services   │  │  Models/DTOs │       │
+│  │              │  │              │  │              │       │
+│  │ UserCard     │  │  UserData    │  │ GitHub DTO   │       │
+│  │ UserMgmt     │  │              │  │ Internal DTO │       │
+│  └──────────────┘  └──────────────┘  │ Twitter DTO  │       │
+│                                      │ JSONPh. DTO  │       │
+│                                      └──────────────┘       │
 └──────────────────────────┬──────────────────────────────────┘
                            │
 ┌──────────────────────────┴──────────────────────────────────┐
-│                       CAPA CORE                              │
-│             (Lógica reutilizable de negocio)                 │
-│                                                              │
-│  ┌──────────────┐  ┌──────────────────────────────────┐    │
-│  │    Models    │  │         Adapters                 │    │
-│  │              │  │                                  │    │
-│  │     User     │  │  BaseAdapter (abstracto)        │    │
-│  │ (unificado)  │  │         ▲                        │    │
-│  └──────────────┘  │         │                        │    │
-│                    │  ┌──────┴──────┬──────┬──────┐  │    │
-│                    │  │             │      │      │  │    │
-│                    │  GitHub   Internal  JSON  Twitter    │
-│                    │  Adapter  Adapter   Adapter Adapter  │
-│                    └──────────────────────────────────────┘│
+│                       CAPA CORE                             │
+│             (Lógica reutilizable de negocio)                │
+│                                                             │
+│  ┌──────────────┐  ┌──────────────────────────────────────┐ │
+│  │    Models    │  │         Adapters                     │ │
+│  │              │  │                                      │ │
+│  │     User     │  │  BaseAdapter (abstracto)             │ │
+│  │ (unificado)  │  │         ▲                            │ │
+│  └──────────────┘  │         │                            │ │
+│                    │  ┌──────┴──────┬──────┬──────┐       │ │
+│                    │  │             │      │      │       │ │
+│                    │  GitHub   Internal  JSON  Twitter    │ │
+│                    │  Adapter  Adapter   Adapter Adapter  │ │
+│                    └──────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -147,25 +148,42 @@ Imagina que tienes una aplicación que necesita mostrar información de usuarios
 // GitHub te da esto:
 {
   id: 12345,
-  login: 'johndoe',
-  avatar_url: 'https://...',
-  email: null,
-  created_at: '2020-01-01T00:00:00Z'
+    login
+:
+  'johndoe',
+    avatar_url
+:
+  'https://...',
+    email
+:
+  null,
+    created_at
+:
+  '2020-01-01T00:00:00Z'
 }
 
 // Tu API interna te da esto:
 {
   userId: '67890',
-  fullName: 'John Doe',
-  emailAddress: 'john@example.com',
-  profileImage: 'https://...',
-  registeredAt: '2020-01-01'
+    fullName
+:
+  'John Doe',
+    emailAddress
+:
+  'john@example.com',
+    profileImage
+:
+  'https://...',
+    registeredAt
+:
+  '2020-01-01'
 }
 
 // ¡Son completamente diferentes!
 ```
 
 **Sin el patrón Adapter**, tendrías que:
+
 - Escribir lógica de transformación en múltiples lugares
 - Acoplar tus componentes a estructuras de datos externas
 - Duplicar código de validación y normalización
@@ -241,10 +259,18 @@ Esta interfaz define el contrato: **cualquier adapter debe recibir un DTO de tip
 // src/app/core/adapters/base.adapter.ts
 export abstract class BaseAdapter {
   // Métodos de utilidad compartidos
-  protected isValidEmail(email: string): boolean { ... }
-  protected parseDateSafely(dateString: string): Date | null { ... }
-  protected sanitizeText(text: string, maxLength?: number): string { ... }
-  protected requireField<T>(value: T | null | undefined, fieldName: string): T { ... }
+  protected isValidEmail(email: string): boolean { ...
+  }
+
+  protected parseDateSafely(dateString: string): Date | null { ...
+  }
+
+  protected sanitizeText(text: string, maxLength?: number): string { ...
+  }
+
+  protected requireField<T>(value: T | null | undefined, fieldName: string): T { ...
+  }
+
   // ... más utilidades
 }
 ```
@@ -267,7 +293,7 @@ export class GithubUserAdapter extends BaseAdapter implements UserAdapter<Github
       name: this.sanitizeText(dto.name || dto.login),
       email: this.isValidEmail(dto.email || '')
         ? this.normalizeEmail(dto.email!)
-        : `${dto.login}@github.com`,
+        : `${ dto.login }@github.com`,
       avatar: dto.avatar_url || 'https://via.placeholder.com/150',
       joinedDate: this.parseDateSafely(dto.created_at),
       source: 'github',
@@ -351,11 +377,11 @@ angular-adapter-pattern/
 
 ### Organización por Capas
 
-| Capa | Ubicación | Responsabilidad |
-|------|-----------|-----------------|
-| **Core** | `src/app/core/` | Lógica de negocio reutilizable (adapters, modelos base) |
-| **Features** | `src/app/features/` | Módulos de características específicas |
-| **App** | `src/app/` | Bootstrap y componente raíz |
+| Capa         | Ubicación           | Responsabilidad                                         |
+|--------------|---------------------|---------------------------------------------------------|
+| **Core**     | `src/app/core/`     | Lógica de negocio reutilizable (adapters, modelos base) |
+| **Features** | `src/app/features/` | Módulos de características específicas                  |
+| **App**      | `src/app/`          | Bootstrap y componente raíz                             |
 
 ---
 
@@ -391,6 +417,7 @@ export interface GithubUserDto {
 ```
 
 **Transformaciones:**
+
 - `name`: Usa `name` si existe, sino `login`
 - `email`: Genera `{login}@github.com` si es null
 - `created_at`: Parseado a `Date`
@@ -408,6 +435,7 @@ export interface InternalUserDto {
 ```
 
 **Transformaciones:**
+
 - `userId`: Convertido de string a number
 - `emailAddress`: Validado y normalizado
 - `registeredAt`: Parseado a `Date`
@@ -424,6 +452,7 @@ export interface JsonplaceholderUserDto {
 ```
 
 **Transformaciones:**
+
 - Sin `joinedDate` disponible
 - Avatar por defecto asignado
 - Email validado estrictamente
@@ -443,6 +472,7 @@ export interface TwitterUserDto {
 ```
 
 **Transformaciones:**
+
 - `id_str`: Convertido a number
 - `profile_image_url`: Mejorado (_normal → _400x400)
 - `email`: Generado como `{screen_name}@twitter.com`
@@ -450,13 +480,13 @@ export interface TwitterUserDto {
 
 ### Comparativa de Fuentes
 
-| Campo | GitHub | Internal | JSONPlaceholder | Twitter |
-|-------|--------|----------|-----------------|---------|
-| **ID** | number | string→number | number | string→number |
-| **Nombre** | name \|\| login | fullName | name | name \|\| screen_name |
-| **Email** | email \|\| generado | emailAddress | email | generado |
-| **Avatar** | avatar_url | profileImage | ❌ default | profile_image_url (mejorado) |
-| **Fecha** | created_at | registeredAt | ❌ null | created_at |
+| Campo      | GitHub              | Internal      | JSONPlaceholder | Twitter                      |
+|------------|---------------------|---------------|-----------------|------------------------------|
+| **ID**     | number              | string→number | number          | string→number                |
+| **Nombre** | name \|\| login     | fullName      | name            | name \|\| screen_name        |
+| **Email**  | email \|\| generado | emailAddress  | email           | generado                     |
+| **Avatar** | avatar_url          | profileImage  | ❌ default       | profile_image_url (mejorado) |
+| **Fecha**  | created_at          | registeredAt  | ❌ null          | created_at                   |
 
 ---
 
@@ -593,12 +623,12 @@ ng generate --help
 └───────────────────────────┬──────────────────────────────────┘
                             │
                             ▼
-┌──────────────────────────────────────────────────────────────┐
-│              UserData.adaptWithErrorHandling()               │
-│                                                              │
+┌─────────────────────────────────────────────────────────────┐
+│              UserData.adaptWithErrorHandling()              │
+│                                                             │
 │  for (dto of dtos) {                                        │
-│    try {                                                     │
-│      user = adapter.adapt(dto)  ──────┐                    │
+│    try {                                                    │
+│      user = adapter.adapt(dto)   ──────┐                    │
 │      adaptedUsers.push(user)           │                    │
 │    } catch (error) {                   │                    │
 │      errors.push(error.message)        │                    │
@@ -611,20 +641,20 @@ ng generate --help
 │                  Adapter Concreto                            │
 │                  (ej: GithubUserAdapter)                     │
 │                                                              │
-│  adapt(dto: GithubUserDto): User {                          │
+│  adapt(dto: GithubUserDto): User {                           │
 │                                                              │
-│    1. Validación (using BaseAdapter methods):               │
-│       ├─> requireField(dto.id, 'id')                        │
-│       ├─> requireField(dto.login, 'login')                  │
-│       └─> isValidEmail(dto.email)                           │
+│    1. Validación (using BaseAdapter methods):                │
+│       ├─> requireField(dto.id, 'id')                         │
+│       ├─> requireField(dto.login, 'login')                   │
+│       └─> isValidEmail(dto.email)                            │
 │                                                              │
 │    2. Transformación:                                        │
-│       ├─> name = sanitizeText(dto.name || dto.login)        │
-│       ├─> email = normalizeEmail(...)                       │
-│       ├─> joinedDate = parseDateSafely(dto.created_at)      │
-│       └─> source = 'github'                                 │
+│       ├─> name = sanitizeText(dto.name || dto.login)         │
+│       ├─> email = normalizeEmail(...)                        │
+│       ├─> joinedDate = parseDateSafely(dto.created_at)       │
+│       └─> source = 'github'                                  │
 │                                                              │
-│    3. Retornar User unificado                               │
+│    3. Retornar User unificado                                │
 │  }                                                           │
 └────────────────────────────────────┬─────────────────────────┘
                                      │
@@ -633,12 +663,12 @@ ng generate --help
 │                  Modelo User Unificado                       │
 │                                                              │
 │  {                                                           │
-│    id: 12345,                                               │
-│    name: "John Doe",                                        │
-│    email: "john@example.com",                               │
-│    avatar: "https://...",                                   │
-│    joinedDate: Date(2020-01-01),                            │
-│    source: "github"                                         │
+│    id: 12345,                                                │
+│    name: "John Doe",                                         │
+│    email: "john@example.com",                                │
+│    avatar: "https://...",                                    │
+│    joinedDate: Date(2020-01-01),                             │
+│    source: "github"                                          │
 │  }                                                           │
 └────────────────────────────────────┬─────────────────────────┘
                                      │
@@ -646,8 +676,8 @@ ng generate --help
 ┌──────────────────────────────────────────────────────────────┐
 │              UserData Service (State)                        │
 │                                                              │
-│  private users = signal<User[]>([...])                      │
-│  readonly allUsers = this.users.asReadonly()                │
+│  private users = signal<User[]>([...])                       │
+│  readonly allUsers = this.users.asReadonly()                 │
 └────────────────────────────────────┬─────────────────────────┘
                                      │
                                      ▼
@@ -655,8 +685,8 @@ ng generate --help
 │             UserManagement Component                         │
 │                                                              │
 │  Template:                                                   │
-│  @for (user of users(); track user.id) {                    │
-│    <app-user-card [user]="user" />                          │
+│  @for (user of users(); track user.id) {                     │
+│    <app-user-card [user]="user" />                           │
 │  }                                                           │
 └────────────────────────────────────┬─────────────────────────┘
                                      │
@@ -668,8 +698,8 @@ ng generate --help
 │  ├─ Avatar                                                   │
 │  ├─ Nombre                                                   │
 │  ├─ Email                                                    │
-│  ├─ Fecha (con DatePipe)                                    │
-│  └─ Badge de fuente (coloreado dinámicamente)               │
+│  ├─ Fecha (con DatePipe)                                     │
+│  └─ Badge de fuente (coloreado dinámicamente)                │
 └──────────────────────────────────────────────────────────────┘
 ```
 
@@ -688,7 +718,15 @@ class GithubUserAdapter {
 }
 
 // Nivel 2: Captura en UserData Service
-adaptWithErrorHandling<T>(dtos: T[], adapter: any, source: string) {
+adaptWithErrorHandling<T>(dtos
+:
+T[], adapter
+:
+any, source
+:
+string
+)
+{
   const adapted: User[] = [];
   const errors: string[] = [];
 
@@ -697,16 +735,17 @@ adaptWithErrorHandling<T>(dtos: T[], adapter: any, source: string) {
       adapted.push(adapter.adapt(dto));
     } catch (error) {
       // Captura el error, lo registra y continúa
-      errors.push(`Error en ${source} [${index}]: ${error.message}`);
+      errors.push(`Error en ${ source } [${ index }]: ${ error.message }`);
       console.error(error);
     }
   });
 
-  return { adapted, errors };
+  return {adapted, errors};
 }
 
 // Nivel 3: Agregación en loadMockData()
-loadMockData() {
+loadMockData()
+{
   const allErrors: string[] = [];
 
   // Procesa cada fuente independientemente
@@ -717,6 +756,7 @@ loadMockData() {
 ```
 
 **Beneficios:**
+
 - ✅ Un error en una fuente no detiene las demás
 - ✅ Errores contextuales con nombre de fuente e índice
 - ✅ La UI siempre muestra los datos que se pudieron cargar
@@ -766,14 +806,14 @@ export class GitlabUserAdapter extends BaseAdapter implements UserAdapter<Gitlab
     }
 
     if (dto.email && !this.isValidEmail(dto.email)) {
-      throw new Error(`Invalid email format: ${dto.email}`);
+      throw new Error(`Invalid email format: ${ dto.email }`);
     }
 
     // 3. Transformar al modelo unificado
     return {
       id: dto.id,
       name: this.sanitizeText(dto.name || dto.username),
-      email: this.normalizeEmail(dto.email || `${dto.username}@gitlab.com`),
+      email: this.normalizeEmail(dto.email || `${ dto.username }@gitlab.com`),
       avatar: dto.avatar_url || 'https://via.placeholder.com/150',
       joinedDate: this.parseDateSafely(dto.created_at),
       source: 'gitlab',  // ⚠️ Actualizar el tipo User
@@ -803,38 +843,42 @@ export interface User {
 import { GitlabUserAdapter } from '@core/adapters/gitlab-user.adapter';
 import { GitlabUserDto } from '../models/gitlab-user';
 
-loadMockData(): void {
-  const adaptedUsers: User[] = [];
-  const errorList: string[] = [];
+loadMockData()
+:
+void {
+  const adaptedUsers
+:
+User[] = [];
+const errorList: string[] = [];
 
-  // ... adapters existentes ...
+// ... adapters existentes ...
 
-  // ✅ Agregar adapter de GitLab
-  const gitlabData: GitlabUserDto[] = [
-    {
-      id: 1234567,
-      username: 'johndoe',
-      name: 'John Doe',
-      email: 'john@gitlab.com',
-      avatar_url: 'https://gitlab.com/uploads/user/avatar/1234567/avatar.png',
-      created_at: '2019-05-15T10:30:00Z',
-      bio: 'Software Engineer',
-    },
-    // ... más usuarios
-  ];
+// ✅ Agregar adapter de GitLab
+const gitlabData: GitlabUserDto[] = [
+  {
+    id: 1234567,
+    username: 'johndoe',
+    name: 'John Doe',
+    email: 'john@gitlab.com',
+    avatar_url: 'https://gitlab.com/uploads/user/avatar/1234567/avatar.png',
+    created_at: '2019-05-15T10:30:00Z',
+    bio: 'Software Engineer',
+  },
+  // ... más usuarios
+];
 
-  const { adapted: gitlabUsers, errors: gitlabErrors } = this.adaptWithErrorHandling(
-    gitlabData,
-    GitlabUserAdapter,
-    'GitLab'
-  );
+const {adapted: gitlabUsers, errors: gitlabErrors} = this.adaptWithErrorHandling(
+  gitlabData,
+  GitlabUserAdapter,
+  'GitLab'
+);
 
-  adaptedUsers.push(...gitlabUsers);
-  errorList.push(...gitlabErrors);
+adaptedUsers.push(...gitlabUsers);
+errorList.push(...gitlabErrors);
 
-  // Actualizar signals
-  this.users.set(adaptedUsers);
-  this.errors.set(errorList);
+// Actualizar signals
+this.users.set(adaptedUsers);
+this.errors.set(errorList);
 }
 ```
 
@@ -844,7 +888,10 @@ Si quieres un color específico para el badge de GitLab:
 
 ```typescript
 // src/app/features/user-management/components/user-card/user-card.ts
-getBadgeColor(): string {
+getBadgeColor()
+:
+string
+{
   const colors: Record<User['source'], string> = {
     github: 'bg-gray-800 text-white',
     internal: 'bg-blue-600 text-white',
