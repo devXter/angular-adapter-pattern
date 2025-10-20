@@ -26,6 +26,7 @@ export class GithubUserAdapter extends BaseAdapter {
       name: this.resolveName(dto.name, dto.login),
       email: this.resolveEmail(dto.email, dto.login),
       avatar: this.resolveAvatar(dto.avatar_url),
+      joinedDate: this.parseDateSafely(dto.created_at),
       source: 'github',
     };
   }

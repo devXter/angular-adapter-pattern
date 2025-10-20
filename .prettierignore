@@ -1,10 +1,5 @@
 ### VisualStudioCode template
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
@@ -35,6 +30,7 @@ libpeerconnection.log/
 npm-debug.log
 testem.log
 .angular/
+README.md
 
 # e2e
 e2e/*.js

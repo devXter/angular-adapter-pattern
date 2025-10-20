@@ -1,39 +1,30 @@
 # Angular Adapter Pattern - User Management System
 
-> Aplicación Angular moderna que demuestra la implementación del **Patrón Adapter** para integrar múltiples fuentes de datos de usuarios con una interfaz unificada.
+> Aplicación Angular que demuestra la implementación del **Patrón Adapter** para integrar múltiples fuentes de datos con estructuras heterogéneas en una interfaz unificada.
 
-## Tabla de Contenidos
+## 📋 Tabla de Contenidos
 
-- [Descripción del Proyecto](#descripción-del-proyecto)
-- [Tecnologías Utilizadas](#tecnologías-utilizadas)
-- [Arquitectura del Proyecto](#arquitectura-del-proyecto)
-- [Patrón de Diseño: Adapter Pattern](#patrón-de-diseño-adapter-pattern)
-- [Estructura de Carpetas](#estructura-de-carpetas)
-- [Modelos y Adaptadores](#modelos-y-adaptadores)
-- [Instalación y Configuración](#instalación-y-configuración)
-- [Comandos Disponibles](#comandos-disponibles)
-- [Flujo de Datos](#flujo-de-datos)
-- [Extender el Sistema](#extender-el-sistema)
-- [Recursos Adicionales](#recursos-adicionales)
+- [Descripción del Proyecto](#-descripción-del-proyecto)
+- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
+- [El Patrón Adapter](#-el-patrón-adapter)
+- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
+- [Instalación y Uso](#-instalación-y-uso)
+- [Extender el Sistema](#-extender-el-sistema)
+- [Recursos Adicionales](#-recursos-adicionales)
 
 ---
 
-## Descripción del Proyecto
+## 🎯 Descripción del Proyecto
 
-Este proyecto es una **aplicación de gestión de usuarios** que integra datos de múltiples fuentes externas y los unifica en un modelo común. La aplicación demuestra cómo el **Patrón Adapter** permite integrar diferentes APIs con estructuras de datos heterogéneas sin acoplamiento directo.
+Este proyecto es una **demostración práctica** de cómo aplicar el **Patrón Adapter** en una aplicación Angular moderna. La aplicación integra datos de **4 fuentes diferentes** (GitHub, API Interna, JSONPlaceholder, Twitter) y los presenta de manera unificada.
 
 ### Características Principales
 
-- **Integración Multi-Fuente**: Obtiene usuarios de 4 fuentes diferentes
-  - GitHub API
-  - API Interna
-  - JSONPlaceholder API
-  - Twitter API
-
-- **Normalización de Datos**: Transforma estructuras de datos dispares en un modelo unificado
-- **Manejo de Errores Robusto**: Validación y manejo de errores durante la transformación
-- **UI Moderna**: Interfaz de tarjetas responsive con Tailwind CSS
-- **State Management Reactivo**: Uso de Angular Signals para gestión de estado
+- ✅ **Integración Multi-Fuente**: Combina datos de APIs con estructuras completamente diferentes
+- ✅ **Normalización Automática**: Transforma datos heterogéneos en un modelo común
+- ✅ **Manejo de Errores Robusto**: Fallos en una fuente no afectan las demás
+- ✅ **UI Moderna**: Interfaz responsive con Tailwind CSS
+- ✅ **Angular 20+**: Utiliza las últimas características (Signals, Standalone Components, Zoneless)
 
 ### Vista Previa
 
@@ -42,352 +33,207 @@ La aplicación muestra una grilla de tarjetas de usuario con:
 - Avatar del usuario
 - Nombre completo
 - Correo electrónico
-- Fecha de registro (si está disponible)
+- Fecha de registro (cuando está disponible)
 - Badge indicando la fuente de datos
 
 ---
 
-## Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas
 
-### Framework y Core
+### Core
 
-| Tecnología     | Versión | Propósito                                             |
-|----------------|---------|-------------------------------------------------------|
-| **Angular**    | 20.3.0  | Framework principal con detección de cambios zoneless |
-| **TypeScript** | 5.9.2   | Lenguaje de programación con tipado estricto          |
-| **RxJS**       | 7.8.0   | Programación reactiva                                 |
+- **Angular 20.3** - Framework con standalone components y signals
+- **TypeScript 5.9** - Tipado estático
+- **RxJS 7.8** - Programación reactiva
 
-### UI y Estilos
+### UI & Styling
 
-| Tecnología       | Versión | Propósito                               |
-|------------------|---------|-----------------------------------------|
-| **Tailwind CSS** | 4.1.14  | Framework de utilidades CSS             |
-| **PostCSS**      | 8.5.6   | Transformación de CSS                   |
-| **Prettier**     | 3.6.2   | Formateo de código con soporte Tailwind |
+- **Tailwind CSS 4.1** - Utility-first CSS
+- **Prettier** - Code formatting
 
-### Testing y Desarrollo
+### Testing
 
-| Tecnología      | Versión | Propósito                          |
-|-----------------|---------|------------------------------------|
-| **Karma**       | 6.4.0   | Test runner                        |
-| **Jasmine**     | 5.9.0   | Framework de testing               |
-| **Angular CLI** | 20.3.6  | Herramientas de desarrollo y build |
+- **Karma + Jasmine** - Unit testing
 
-### Características Modernas de Angular 20+
+### Características Modernas de Angular
 
-- **Standalone Components**: Sin NgModules
-- **Angular Signals**: State management reactivo nativo
-- **Zoneless Change Detection**: Mejor rendimiento
-- **Nueva Sintaxis de Control Flow**: `@for`, `@if` en templates
+- 🔥 **Standalone Components** - Sin NgModules
+- 🔥 **Angular Signals** - State management reactivo nativo
+- 🔥 **Zoneless Change Detection** - Mejor rendimiento
+- 🔥 **Nueva sintaxis**: `@for`, `@if` en templates
 
 ---
 
-## Arquitectura del Proyecto
-
-El proyecto sigue una **arquitectura basada en características** con tres capas principales:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      CAPA DE APLICACIÓN                     │
-│                  (Bootstrap y componente raíz)              │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────┐
-│                     CAPA DE FEATURES                        │
-│        (Módulos de características - User Management)       │
-│                                                             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
-│  │ Components   │  │   Services   │  │  Models/DTOs │       │
-│  │              │  │              │  │              │       │
-│  │ UserCard     │  │  UserData    │  │ GitHub DTO   │       │
-│  │ UserMgmt     │  │              │  │ Internal DTO │       │
-│  └──────────────┘  └──────────────┘  │ Twitter DTO  │       │
-│                                      │ JSONPh. DTO  │       │
-│                                      └──────────────┘       │
-└──────────────────────────┬──────────────────────────────────┘
-                           │
-┌──────────────────────────┴──────────────────────────────────┐
-│                       CAPA CORE                             │
-│             (Lógica reutilizable de negocio)                │
-│                                                             │
-│  ┌──────────────┐  ┌──────────────────────────────────────┐ │
-│  │    Models    │  │         Adapters                     │ │
-│  │              │  │                                      │ │
-│  │     User     │  │  BaseAdapter (abstracto)             │ │
-│  │ (unificado)  │  │         ▲                            │ │
-│  └──────────────┘  │         │                            │ │
-│                    │  ┌──────┴──────┬──────┬──────┐       │ │
-│                    │  │             │      │      │       │ │
-│                    │  GitHub   Internal  JSON  Twitter    │ │
-│                    │  Adapter  Adapter   Adapter Adapter  │ │
-│                    └──────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Principios SOLID Aplicados
-
-- **Single Responsibility**: Cada adapter maneja solo la transformación de una fuente
-- **Open/Closed**: Abierto a extensión (nuevos adapters), cerrado a modificación
-- **Liskov Substitution**: Todos los adapters implementan `UserAdapter<T>`
-- **Interface Segregation**: Interfaces mínimas y enfocadas
-- **Dependency Inversion**: Dependencia en abstracciones, no implementaciones
-
----
-
-## Patrón de Diseño: Adapter Pattern
+## 🔧 El Patrón Adapter
 
 ### ¿Qué es el Patrón Adapter?
 
-El **Patrón Adapter** (también conocido como Wrapper) es un patrón estructural que permite que interfaces incompatibles trabajen juntas. Actúa como un puente entre dos interfaces, transformando la interfaz de una clase en otra que el cliente espera.
+El **Patrón Adapter** (también conocido como Wrapper) es un patrón estructural que permite que interfaces incompatibles trabajen juntas. Actúa como un **traductor** entre dos sistemas con formatos diferentes.
 
-### Problema que Resuelve
+### El Problema que Resuelve
 
-Imagina que tienes una aplicación que necesita mostrar información de usuarios, pero obtiene datos de múltiples fuentes:
+Imagina que tu aplicación necesita mostrar usuarios, pero cada fuente de datos tiene su propia estructura:
 
-```typescript
-// GitHub te da esto:
+**GitHub API:**
+
+```json
 {
-  id: 12345,
-    login
-:
-  'johndoe',
-    avatar_url
-:
-  'https://...',
-    email
-:
-  null,
-    created_at
-:
-  '2020-01-01T00:00:00Z'
+  "id": 123,
+  "login": "johndoe",
+  "avatar_url": "https://...",
+  "email": null,
+  "created_at": "2020-01-01T00:00:00Z"
 }
-
-// Tu API interna te da esto:
-{
-  userId: '67890',
-    fullName
-:
-  'John Doe',
-    emailAddress
-:
-  'john@example.com',
-    profileImage
-:
-  'https://...',
-    registeredAt
-:
-  '2020-01-01'
-}
-
-// ¡Son completamente diferentes!
 ```
 
-**Sin el patrón Adapter**, tendrías que:
+**Tu API Interna:**
 
-- Escribir lógica de transformación en múltiples lugares
-- Acoplar tus componentes a estructuras de datos externas
-- Duplicar código de validación y normalización
+```json
+{
+  "userId": "456",
+  "fullName": "John Doe",
+  "emailAddress": "john@example.com",
+  "profileImage": "https://...",
+  "registeredAt": "2020-01-01"
+}
+```
 
-### Solución con Adapter Pattern
+**JSONPlaceholder:**
+
+```json
+{
+  "id": 1,
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "leanne@example.com"
+}
+```
+
+¡Estructuras completamente diferentes! Sin el patrón Adapter tendrías que:
+
+- ❌ Escribir lógica de transformación en múltiples lugares
+- ❌ Acoplar tus componentes a estructuras externas
+- ❌ Duplicar validación y normalización
+
+### La Solución: Adapter Pattern
+
+El patrón crea una **capa de adaptación** que transforma cada estructura en un **modelo unificado**:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                  Fuentes de Datos Externas                  │
-│      (Diferentes estructuras, campos, tipos)                │
+│          (Diferentes estructuras, campos, tipos)            │
 └────────────┬────────────────────────────────┬───────────────┘
              │                                │
              ▼                                ▼
-┌────────────────────────┐       ┌────────────────────────┐
-│   GitHub API DTO       │       │   Internal API DTO     │
-│                        │       │                        │
-│  {                     │       │  {                     │
-│    id: number          │       │    userId: string      │
-│    login: string       │       │    fullName: string    │
-│    avatar_url: string  │       │    emailAddress: ...   │
-│    ...                 │       │    ...                 │
-│  }                     │       │  }                     │
-└────────────┬───────────┘       └───────────┬────────────┘
-             │                               │
-             │    ┌─────────────────────┐    │
-             └───▶│  ADAPTER LAYER      │◀───┘
-                  │                     │
-                  │  Transforma datos   │
-                  │  incompatibles a    │
-                  │  un modelo unificado│
-                  └──────────┬──────────┘
-                             │
-                             ▼
-                  ┌─────────────────────┐
-                  │   Modelo Unificado  │
-                  │                     │
-                  │  interface User {   │
-                  │    id: number       │
-                  │    name: string     │
-                  │    email: string    │
-                  │    avatar: string   │
-                  │    joinedDate?: Date│
-                  │    source: string   │
-                  │  }                  │
-                  └──────────┬──────────┘
-                             │
-                             ▼
-                  ┌─────────────────────┐
-                  │   Capa de UI        │
-                  │   (Componentes)     │
-                  │                     │
-                  │   Siempre reciben   │
-                  │   el mismo formato  │
-                  └─────────────────────┘
+    ┌─────────────────┐              ┌─────────────────┐
+    │  GitHub Adapter │              │ Internal Adapter│
+    │                 │              │                 │
+    │  adapt(dto) {   │              │  adapt(dto) {   │
+    │    return {     │              │    return {     │
+    │      id: dto.id │              │      id: parse  │
+    │      name: ...  │              │      name: ...  │
+    │      ...        │              │      ...        │
+    │    }            │              │    }            │
+    │  }              │              │  }              │
+    └────────┬────────┘              └────────┬────────┘
+             │                                │
+             └────────────┬───────────────────┘
+                          ▼
+                ┌─────────────────────┐
+                │   Modelo Unificado  │
+                │                     │
+                │  interface User {   │
+                │    id: number       │
+                │    name: string     │
+                │    email: string    │
+                │    avatar: string   │
+                │    joinedDate?: Date│
+                │    source: string   │
+                │  }                  │
+                └──────────┬──────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │   Componentes UI    │
+                │   (siempre reciben  │
+                │   el mismo formato) │
+                └─────────────────────┘
 ```
 
-### Implementación en el Proyecto
-
-#### 1. Interfaz del Adapter (Contrato)
-
-```typescript
-// src/app/core/adapters/user.adapter.interface.ts
-type UserAdapter<T> = {
-  adapt(dto: T): User;
-};
-```
-
-Esta interfaz define el contrato: **cualquier adapter debe recibir un DTO de tipo `T` y devolver un `User`**.
-
-#### 2. Clase Base Abstracta con Utilidades
-
-```typescript
-// src/app/core/adapters/base.adapter.ts
-export abstract class BaseAdapter {
-  // Métodos de utilidad compartidos
-  protected isValidEmail(email: string): boolean { ...
-  }
-
-  protected parseDateSafely(dateString: string): Date | null { ...
-  }
-
-  protected sanitizeText(text: string, maxLength?: number): string { ...
-  }
-
-  protected requireField<T>(value: T | null | undefined, fieldName: string): T { ...
-  }
-
-  // ... más utilidades
-}
-```
-
-#### 3. Adapters Concretos
-
-Cada fuente de datos tiene su propio adapter que hereda de `BaseAdapter`:
-
-```typescript
-// src/app/core/adapters/github-user.adapter.ts
-export class GithubUserAdapter extends BaseAdapter implements UserAdapter<GithubUserDto> {
-  adapt(dto: GithubUserDto): User {
-    // Valida campos requeridos
-    this.requireField(dto.id, 'id');
-    this.requireField(dto.login, 'login');
-
-    // Transforma al modelo unificado
-    return {
-      id: dto.id,
-      name: this.sanitizeText(dto.name || dto.login),
-      email: this.isValidEmail(dto.email || '')
-        ? this.normalizeEmail(dto.email!)
-        : `${ dto.login }@github.com`,
-      avatar: dto.avatar_url || 'https://via.placeholder.com/150',
-      joinedDate: this.parseDateSafely(dto.created_at),
-      source: 'github',
-    };
-  }
-}
-```
-
-### Beneficios del Patrón
+### Beneficios Clave
 
 ✅ **Desacoplamiento**: Los componentes no conocen las APIs externas
 ✅ **Extensibilidad**: Agregar una nueva fuente = crear un nuevo adapter
-✅ **Mantenibilidad**: Cambios en APIs externas solo afectan su adapter
-✅ **Reutilización**: `BaseAdapter` comparte lógica común
-✅ **Testabilidad**: Cada adapter se puede probar aisladamente
+✅ **Mantenibilidad**: Cambios en APIs solo afectan su adapter
+✅ **Reutilización**: Lógica común compartida en clase base
+✅ **Testabilidad**: Cada adapter se prueba aisladamente
 ✅ **Consistencia**: Todos los datos fluyen con el mismo formato
 
 ---
 
-## Estructura de Carpetas
+## 🏗️ Arquitectura del Proyecto
+
+### Estructura de Capas
+
+El proyecto sigue una **arquitectura basada en características** con separación clara de responsabilidades:
 
 ```
-angular-adapter-pattern/
-│
-├── src/
-│   ├── app/
-│   │   │
-│   │   ├── core/                          # Lógica central reutilizable
-│   │   │   ├── adapters/                  # 🎯 Patrón Adapter
-│   │   │   │   ├── base.adapter.ts        # Clase base abstracta
-│   │   │   │   ├── user.adapter.interface.ts  # Contrato del adapter
-│   │   │   │   ├── github-user.adapter.ts     # Adapter para GitHub
-│   │   │   │   ├── internal-user.adapter.ts   # Adapter para API interna
-│   │   │   │   ├── jsonplaceholder-user.adapter.ts
-│   │   │   │   └── twitter-user.adapter.ts
-│   │   │   │
-│   │   │   └── models/
-│   │   │       └── user.ts                # Modelo User unificado
-│   │   │
-│   │   ├── features/                      # Módulos por característica
-│   │   │   └── user-management/
-│   │   │       ├── models/                # DTOs de APIs externas
-│   │   │       │   ├── github-user.ts
-│   │   │       │   ├── internal-user.ts
-│   │   │       │   ├── jsonplaceholder-user.ts
-│   │   │       │   └── twitter-user.ts
-│   │   │       │
-│   │   │       ├── services/
-│   │   │       │   ├── user-data.ts       # Servicio orquestador
-│   │   │       │   └── user-data.spec.ts  # Tests
-│   │   │       │
-│   │   │       ├── components/
-│   │   │       │   └── user-card/         # Componente de tarjeta
-│   │   │       │       ├── user-card.ts
-│   │   │       │       ├── user-card.html
-│   │   │       │       ├── user-card.css
-│   │   │       │       └── user-card.spec.ts
-│   │   │       │
-│   │   │       ├── user-management.ts     # Componente principal
-│   │   │       ├── user-management.html
-│   │   │       ├── user-management.css
-│   │   │       └── user-management.spec.ts
-│   │   │
-│   │   ├── app.ts                         # Componente raíz
-│   │   ├── app.html
-│   │   ├── app.css
-│   │   ├── app.config.ts                  # Configuración de la app
-│   │   ├── app.routes.ts                  # Rutas
-│   │   └── app.spec.ts
-│   │
-│   ├── main.ts                            # Punto de entrada (bootstrap)
-│   ├── index.html
-│   └── styles.css                         # Estilos globales (Tailwind)
-│
-├── public/                                # Assets estáticos
-├── package.json                           # Dependencias y scripts
-├── angular.json                           # Configuración de Angular CLI
-├── tsconfig.json                          # Configuración de TypeScript
-└── README.md                              # Este archivo
+┌─────────────────────────────────────────────────────────────┐
+│                    CAPA DE APLICACIÓN                       │
+│                (Bootstrap y configuración)                  │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+┌──────────────────────────┴──────────────────────────────────┐
+│                     CAPA DE FEATURES                        │
+│              (Características de negocio)                   │
+│                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │
+│  │ Components   │  │   Services   │  │  Models/DTOs │       │
+│  │ (UI)         │  │ (Orquestador)│  │  (Externas)  │       │
+│  └──────────────┘  └──────────────┘  └──────────────┘       │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+┌──────────────────────────┴──────────────────────────────────┐
+│                       CAPA CORE                             │
+│              (Lógica reutilizable de negocio)               │
+│                                                             │
+│  ┌──────────────┐  ┌────────────────────────────────── ┐    │
+│  │    Models    │  │         Adapters                  │    │
+│  │  (Unificado) │  │                                   │    │
+│  │              │  │  BaseAdapter (abstracto)          │    │
+│  │     User     │  │         ▲                         │    │
+│  └──────────────┘  │  ┌──────┴──────┬──────┬──────┐    │    │
+│                    │  │             │      │      │    │    │
+│                    │  Github   Internal  JSON  Twitter │    │
+│                    │  Adapter  Adapter  Adapter Adapter│    │
+│                    └────────────────────────────────── ┘    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Organización por Capas
+### Componentes Principales
 
-| Capa         | Ubicación           | Responsabilidad                                         |
-|--------------|---------------------|---------------------------------------------------------|
-| **Core**     | `src/app/core/`     | Lógica de negocio reutilizable (adapters, modelos base) |
-| **Features** | `src/app/features/` | Módulos de características específicas                  |
-| **App**      | `src/app/`          | Bootstrap y componente raíz                             |
+#### 1. **Core Layer** (`src/app/core/`)
 
----
+- **`models/user.ts`**: Modelo unificado `User` que todos los adapters producen
+- **`adapters/base.adapter.ts`**: Clase abstracta con utilidades compartidas (validación, sanitización, parseo)
+- **`adapters/*-user.adapter.ts`**: Adaptadores concretos para cada fuente de datos
 
-## Modelos y Adaptadores
+#### 2. **Features Layer** (`src/app/features/user-management/`)
 
-### Modelo Unificado: User
+- **`services/user-data.ts`**: Servicio orquestador que coordina los adapters
+- **`models/*-user.ts`**: DTOs específicos de cada API externa
+- **`components/`**: Componentes de UI que consumen el modelo unificado
+
+#### 3. **App Layer** (`src/app/`)
+
+- Configuración de la aplicación y componente raíz
+
+### Implementación del Patrón
+
+#### Paso 1: Modelo Unificado
+
+Todos los adapters transforman hacia este modelo común:
 
 ```typescript
 // src/app/core/models/user.ts
@@ -401,527 +247,271 @@ export interface User {
 }
 ```
 
-### DTOs de Fuentes Externas
+#### Paso 2: Clase Base con Utilidades
 
-#### GitHub User DTO
+Métodos compartidos que todos los adapters pueden usar:
 
 ```typescript
-export interface GithubUserDto {
-  id: number;
-  login: string;              // Nombre de usuario
-  avatar_url: string;
-  email: string | null;       // Puede ser null
-  created_at: string;         // ISO 8601
-  name: string | null;        // Puede ser null
+// src/app/core/adapters/base.adapter.ts
+export abstract class BaseAdapter {
+  protected static isValidEmail(email: string): boolean { /* ... */
+  }
+
+  protected static parseDateSafely(dateString: string): Date | null { /* ... */
+  }
+
+  protected static sanitizeText(text: string, maxLength?: number): string { /* ... */
+  }
+
+  protected static requireField(value: any, field: string, adapter: string): void { /* ... */
+  }
+
+  protected static normalizeEmail(email: string): string { /* ... */
+  }
+
+  // ... más utilidades
 }
 ```
 
-**Transformaciones:**
+#### Paso 3: Adapters Concretos
 
-- `name`: Usa `name` si existe, sino `login`
-- `email`: Genera `{login}@github.com` si es null
-- `created_at`: Parseado a `Date`
-
-#### Internal User DTO
+Cada fuente tiene su adapter que hereda de `BaseAdapter`:
 
 ```typescript
-export interface InternalUserDto {
-  userId: string;             // String que se convierte a number
-  fullName: string;
-  emailAddress: string;
-  profileImage: string;
-  registeredAt: string;       // Fecha como string
+// src/app/core/adapters/github-user.adapter.ts
+export class GithubUserAdapter extends BaseAdapter {
+  static adapt(dto: GithubUserDto): User {
+    // 1. Validar campos requeridos
+    this.requireField(dto, 'dto', 'GithubUserAdapter');
+    this.requireField(dto.id, 'id', 'GithubUserAdapter');
+
+    // 2. Transformar al modelo unificado
+    return {
+      id: dto.id,
+      name: this.resolveName(dto.name, dto.login),
+      email: this.resolveEmail(dto.email, dto.login),
+      avatar: this.resolveAvatar(dto.avatar_url),
+      joinedDate: this.parseDateSafely(dto.created_at),
+      source: 'github',
+    };
+  }
+
+  // Métodos helper privados...
 }
 ```
 
-**Transformaciones:**
+#### Paso 4: Orquestación
 
-- `userId`: Convertido de string a number
-- `emailAddress`: Validado y normalizado
-- `registeredAt`: Parseado a `Date`
-
-#### JSONPlaceholder User DTO
+El servicio coordina todos los adapters:
 
 ```typescript
-export interface JsonplaceholderUserDto {
-  id: number;
-  name: string;
-  email: string;
-  username: string;
+// src/app/features/user-management/services/user-data.ts
+@Injectable()
+export class UserData {
+  private users = signal<User[]>([]);
+  readonly allUsers = this.users.asReadonly();
+
+  loadMockData(): void {
+    const adaptedUsers: User[] = [];
+    const errorList: string[] = [];
+
+    // Cada fuente se procesa independientemente
+    this.adaptWithErrorHandling(githubData, GithubUserAdapter, 'GitHub', adaptedUsers, errorList);
+    this.adaptWithErrorHandling(internalData, InternalUserAdapter, 'Internal', adaptedUsers, errorList);
+    this.adaptWithErrorHandling(jsonData, JsonAdapter, 'JSON', adaptedUsers, errorList);
+    this.adaptWithErrorHandling(twitterData, TwitterAdapter, 'Twitter', adaptedUsers, errorList);
+
+    // Actualizar estado
+    this.users.set(adaptedUsers);
+  }
 }
 ```
 
-**Transformaciones:**
+### Manejo de Errores
 
-- Sin `joinedDate` disponible
-- Avatar por defecto asignado
-- Email validado estrictamente
+El sistema implementa manejo de errores en **3 niveles**:
 
-#### Twitter User DTO
+1. **Nivel Adapter**: Valida datos y lanza errores descriptivos
+2. **Nivel Service**: Captura errores y permite que otras fuentes continúen
+3. **Nivel UI**: Muestra datos exitosos aunque haya fallos parciales
 
-```typescript
-export interface TwitterUserDto {
-  id_str: string;             // ID como string
-  screen_name: string;
-  name: string;
-  profile_image_url_https: string;
-  created_at: string;         // Formato Twitter
-  verified: boolean;
-  followers_count: number;
-}
-```
+**Beneficio clave**: Un fallo en GitHub no impide mostrar usuarios de las otras fuentes.
 
-**Transformaciones:**
+### Principios SOLID Aplicados
 
-- `id_str`: Convertido a number
-- `profile_image_url`: Mejorado (_normal → _400x400)
-- `email`: Generado como `{screen_name}@twitter.com`
-- `created_at`: Parseado desde formato Twitter
-
-### Comparativa de Fuentes
-
-| Campo      | GitHub              | Internal      | JSONPlaceholder | Twitter                      |
-|------------|---------------------|---------------|-----------------|------------------------------|
-| **ID**     | number              | string→number | number          | string→number                |
-| **Nombre** | name \|\| login     | fullName      | name            | name \|\| screen_name        |
-| **Email**  | email \|\| generado | emailAddress  | email           | generado                     |
-| **Avatar** | avatar_url          | profileImage  | ❌ default       | profile_image_url (mejorado) |
-| **Fecha**  | created_at          | registeredAt  | ❌ null          | created_at                   |
+- **S**ingle Responsibility: Cada adapter maneja solo una fuente
+- **O**pen/Closed: Abierto a extensión (nuevos adapters), cerrado a modificación
+- **L**iskov Substitution: Todos los adapters son intercambiables
+- **I**nterface Segregation: Interfaces mínimas y enfocadas
+- **D**ependency Inversion: Dependencia en abstracciones, no implementaciones
 
 ---
 
-## Instalación y Configuración
+## 📦 Instalación y Uso
 
 ### Requisitos Previos
 
 - **Node.js**: v18 o superior
 - **npm**: v9 o superior
-- **Angular CLI**: v20.3.6 (se instala con el proyecto)
 
-### Pasos de Instalación
-
-1. **Clonar el repositorio**
+### Instalación
 
 ```bash
+# Clonar el repositorio
 git clone <url-del-repositorio>
 cd angular-adapter-pattern
-```
 
-2. **Instalar dependencias**
-
-```bash
+# Instalar dependencias
 npm install
 ```
 
-3. **Verificar instalación**
+### Comandos Disponibles
 
 ```bash
-npm run ng version
-```
-
----
-
-## Comandos Disponibles
-
-### Desarrollo
-
-```bash
-# Iniciar servidor de desarrollo (http://localhost:4200)
+# Servidor de desarrollo (http://localhost:4200)
 npm start
-# o
-ng serve
-```
 
-### Build
-
-```bash
-# Build de producción (optimizado)
+# Build de producción
 npm run build
 
-# Build en modo desarrollo con watch
-npm run watch
-```
-
-### Testing
-
-```bash
-# Ejecutar tests unitarios
+# Tests unitarios
 npm test
-# o
-ng test
-```
 
-### Linting y Formato
-
-```bash
-# Formatear código con Prettier
+# Formatear código
 npx prettier --write .
-
-# Verificar formato
-npx prettier --check .
 ```
 
-### Scaffolding (Generación de Código)
+### Estructura de Carpetas
 
-```bash
-# Generar un componente
-ng generate component nombre-componente
-
-# Generar un servicio
-ng generate service nombre-servicio
-
-# Generar una interfaz
-ng generate interface nombre-interfaz
-
-# Ver todas las opciones
-ng generate --help
+```
+src/app/
+├── core/                          # Lógica central reutilizable
+│   ├── adapters/                  # 🎯 Patrón Adapter
+│   │   ├── base.adapter.ts        # Clase base abstracta
+│   │   ├── github-user.adapter.ts
+│   │   ├── internal-user.adapter.ts
+│   │   ├── jsonplaceholder-user.adapter.ts
+│   │   └── twitter-user.adapter.ts
+│   └── models/
+│       └── user.ts                # Modelo unificado
+│
+├── features/                      # Características de negocio
+│   └── user-management/
+│       ├── models/                # DTOs externos
+│       ├── services/              # Orquestador
+│       └── components/            # UI
+│
+└── app.ts                         # Componente raíz
 ```
 
 ---
 
-## Flujo de Datos
-
-### Inicialización de la Aplicación
-
-```
-1. main.ts
-   └─> bootstrapApplication(App, appConfig)
-       │
-       ├─> Configuración:
-       │   ├─ provideZonelessChangeDetection()
-       │   ├─ provideRouter(routes)
-       │   └─ Error listeners
-       │
-       └─> App Component
-           └─> UserManagement Component
-               │
-               ├─> Constructor: Inyecta UserData Service
-               │
-               └─> ngOnInit()
-                   └─> userDataService.loadMockData()
-                       │
-                       ├─> Adapta datos de GitHub
-                       ├─> Adapta datos de Internal API
-                       ├─> Adapta datos de JSONPlaceholder
-                       ├─> Adapta datos de Twitter
-                       │
-                       └─> users.set([...todosLosUsuariosAdaptados])
-                           │
-                           └─> Signal actualizado
-                               │
-                               └─> Template se re-renderiza
-                                   │
-                                   └─> @for (user of users())
-                                       └─> <app-user-card [user]="user">
-```
-
-### Flujo de Transformación de Datos
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    Datos Externos (DTOs)                     │
-└───────────────────────────┬──────────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────────┐
-│              UserData.adaptWithErrorHandling()              │
-│                                                             │
-│  for (dto of dtos) {                                        │
-│    try {                                                    │
-│      user = adapter.adapt(dto)   ──────┐                    │
-│      adaptedUsers.push(user)           │                    │
-│    } catch (error) {                   │                    │
-│      errors.push(error.message)        │                    │
-│    }                                   │                    │
-│  }                                     │                    │
-└────────────────────────────────────────┼────────────────────┘
-                                         │
-                                         ▼
-┌──────────────────────────────────────────────────────────────┐
-│                  Adapter Concreto                            │
-│                  (ej: GithubUserAdapter)                     │
-│                                                              │
-│  adapt(dto: GithubUserDto): User {                           │
-│                                                              │
-│    1. Validación (using BaseAdapter methods):                │
-│       ├─> requireField(dto.id, 'id')                         │
-│       ├─> requireField(dto.login, 'login')                   │
-│       └─> isValidEmail(dto.email)                            │
-│                                                              │
-│    2. Transformación:                                        │
-│       ├─> name = sanitizeText(dto.name || dto.login)         │
-│       ├─> email = normalizeEmail(...)                        │
-│       ├─> joinedDate = parseDateSafely(dto.created_at)       │
-│       └─> source = 'github'                                  │
-│                                                              │
-│    3. Retornar User unificado                                │
-│  }                                                           │
-└────────────────────────────────────┬─────────────────────────┘
-                                     │
-                                     ▼
-┌──────────────────────────────────────────────────────────────┐
-│                  Modelo User Unificado                       │
-│                                                              │
-│  {                                                           │
-│    id: 12345,                                                │
-│    name: "John Doe",                                         │
-│    email: "john@example.com",                                │
-│    avatar: "https://...",                                    │
-│    joinedDate: Date(2020-01-01),                             │
-│    source: "github"                                          │
-│  }                                                           │
-└────────────────────────────────────┬─────────────────────────┘
-                                     │
-                                     ▼
-┌──────────────────────────────────────────────────────────────┐
-│              UserData Service (State)                        │
-│                                                              │
-│  private users = signal<User[]>([...])                       │
-│  readonly allUsers = this.users.asReadonly()                 │
-└────────────────────────────────────┬─────────────────────────┘
-                                     │
-                                     ▼
-┌──────────────────────────────────────────────────────────────┐
-│             UserManagement Component                         │
-│                                                              │
-│  Template:                                                   │
-│  @for (user of users(); track user.id) {                     │
-│    <app-user-card [user]="user" />                           │
-│  }                                                           │
-└────────────────────────────────────┬─────────────────────────┘
-                                     │
-                                     ▼
-┌──────────────────────────────────────────────────────────────┐
-│                  UserCard Component                          │
-│                                                              │
-│  Muestra:                                                    │
-│  ├─ Avatar                                                   │
-│  ├─ Nombre                                                   │
-│  ├─ Email                                                    │
-│  ├─ Fecha (con DatePipe)                                     │
-│  └─ Badge de fuente (coloreado dinámicamente)                │
-└──────────────────────────────────────────────────────────────┘
-```
-
-### Manejo de Errores
-
-El sistema implementa manejo de errores en múltiples niveles:
-
-```typescript
-// Nivel 1: Validación en Adapters
-class GithubUserAdapter {
-  adapt(dto: GithubUserDto): User {
-    // Si falla, lanza Error
-    this.requireField(dto.id, 'id');
-    // ...
-  }
-}
-
-// Nivel 2: Captura en UserData Service
-adaptWithErrorHandling<T>(dtos
-:
-T[], adapter
-:
-any, source
-:
-string
-)
-{
-  const adapted: User[] = [];
-  const errors: string[] = [];
-
-  dtos.forEach((dto, index) => {
-    try {
-      adapted.push(adapter.adapt(dto));
-    } catch (error) {
-      // Captura el error, lo registra y continúa
-      errors.push(`Error en ${ source } [${ index }]: ${ error.message }`);
-      console.error(error);
-    }
-  });
-
-  return {adapted, errors};
-}
-
-// Nivel 3: Agregación en loadMockData()
-loadMockData()
-{
-  const allErrors: string[] = [];
-
-  // Procesa cada fuente independientemente
-  // Un error en una fuente no detiene las demás
-
-  this.errors.set(allErrors);  // Almacena todos los errores
-}
-```
-
-**Beneficios:**
-
-- ✅ Un error en una fuente no detiene las demás
-- ✅ Errores contextuales con nombre de fuente e índice
-- ✅ La UI siempre muestra los datos que se pudieron cargar
-- ✅ Errores registrados en consola para debugging
-
----
-
-## Extender el Sistema
+## 🚀 Extender el Sistema
 
 ### Agregar una Nueva Fuente de Datos
 
-Supongamos que queremos agregar **GitLab** como nueva fuente de usuarios.
+Supongamos que quieres integrar **GitLab**. Sigue estos 4 pasos:
 
-#### Paso 1: Crear el DTO
+#### 1. Crear el DTO
+
+Define la estructura de datos de GitLab:
 
 ```typescript
 // src/app/features/user-management/models/gitlab-user.ts
 export interface GitlabUserDto {
   id: number;
   username: string;
-  name: string;
-  email: string;
-  avatar_url: string;
+  name: string | null;
+  email: string | null;
+  avatar_url?: string;
   created_at: string;
-  bio: string;
 }
 ```
 
-#### Paso 2: Crear el Adapter
+#### 2. Crear el Adapter
+
+Extiende `BaseAdapter` e implementa `adapt()`:
 
 ```typescript
 // src/app/core/adapters/gitlab-user.adapter.ts
-import { BaseAdapter } from './base.adapter';
-import { UserAdapter } from './user.adapter.interface';
-import { User } from '../models/user';
-import { GitlabUserDto } from '@features/user-management/models/gitlab-user';
+export class GitlabUserAdapter extends BaseAdapter {
+  private static readonly ADAPTER_NAME = 'GitlabUserAdapter';
+  private static readonly DEFAULT_AVATAR = 'default-avatar.svg';
 
-export class GitlabUserAdapter extends BaseAdapter implements UserAdapter<GitlabUserDto> {
-  adapt(dto: GitlabUserDto): User {
-    // 1. Validar campos requeridos
-    this.requireField(dto.id, 'id');
-    this.requireField(dto.username, 'username');
+  static adapt(dto: GitlabUserDto): User {
+    // Validación
+    this.requireField(dto, 'dto', this.ADAPTER_NAME);
+    this.requireField(dto.id, 'id', this.ADAPTER_NAME);
+    this.requireField(dto.username, 'username', this.ADAPTER_NAME);
 
-    // 2. Validar reglas de negocio
-    if (dto.id <= 0) {
-      throw new Error('GitLab user ID must be positive');
-    }
-
-    if (dto.email && !this.isValidEmail(dto.email)) {
-      throw new Error(`Invalid email format: ${ dto.email }`);
-    }
-
-    // 3. Transformar al modelo unificado
+    // Transformación
     return {
       id: dto.id,
-      name: this.sanitizeText(dto.name || dto.username),
-      email: this.normalizeEmail(dto.email || `${ dto.username }@gitlab.com`),
-      avatar: dto.avatar_url || 'https://via.placeholder.com/150',
+      name: this.resolveName(dto.name, dto.username),
+      email: this.resolveEmail(dto.email, dto.username),
+      avatar: this.resolveAvatar(dto.avatar_url),
       joinedDate: this.parseDateSafely(dto.created_at),
-      source: 'gitlab',  // ⚠️ Actualizar el tipo User
+      source: 'gitlab', // ⚠️ Agregar a User.source
     };
   }
+
+  // Métodos helper...
 }
 ```
 
-#### Paso 3: Actualizar el Modelo User
+#### 3. Actualizar el Modelo User
+
+Agrega la nueva fuente al tipo union:
 
 ```typescript
 // src/app/core/models/user.ts
 export interface User {
-  id: number;
-  name: string;
-  email: string;
-  avatar: string;
-  joinedDate?: Date | null;
-  source: 'internal' | 'github' | 'jsonplaceholder' | 'twitter' | 'gitlab';  // ✅ Agregar 'gitlab'
+  // ...
+  source: 'internal' | 'github' | 'jsonplaceholder' | 'twitter' | 'gitlab';
 }
 ```
 
-#### Paso 4: Integrar en UserData Service
+#### 4. Integrar en el Servicio
+
+Úsalo en el orquestador:
 
 ```typescript
 // src/app/features/user-management/services/user-data.ts
-import { GitlabUserAdapter } from '@core/adapters/gitlab-user.adapter';
-import { GitlabUserDto } from '../models/gitlab-user';
-
 loadMockData()
 :
 void {
-  const adaptedUsers
+  const gitlabData
 :
-User[] = [];
-const errorList: string[] = [];
+GitlabUserDto[] = [ /* ... */];
 
-// ... adapters existentes ...
-
-// ✅ Agregar adapter de GitLab
-const gitlabData: GitlabUserDto[] = [
-  {
-    id: 1234567,
-    username: 'johndoe',
-    name: 'John Doe',
-    email: 'john@gitlab.com',
-    avatar_url: 'https://gitlab.com/uploads/user/avatar/1234567/avatar.png',
-    created_at: '2019-05-15T10:30:00Z',
-    bio: 'Software Engineer',
-  },
-  // ... más usuarios
-];
-
-const {adapted: gitlabUsers, errors: gitlabErrors} = this.adaptWithErrorHandling(
+this.adaptWithErrorHandling(
   gitlabData,
   GitlabUserAdapter,
-  'GitLab'
+  'GitLab',
+  adaptedUsers,
+  errorList
 );
-
-adaptedUsers.push(...gitlabUsers);
-errorList.push(...gitlabErrors);
-
-// Actualizar signals
-this.users.set(adaptedUsers);
-this.errors.set(errorList);
-}
-```
-
-#### Paso 5: Actualizar el UserCard Component (Opcional)
-
-Si quieres un color específico para el badge de GitLab:
-
-```typescript
-// src/app/features/user-management/components/user-card/user-card.ts
-getBadgeColor()
-:
-string
-{
-  const colors: Record<User['source'], string> = {
-    github: 'bg-gray-800 text-white',
-    internal: 'bg-blue-600 text-white',
-    jsonplaceholder: 'bg-green-600 text-white',
-    twitter: 'bg-sky-500 text-white',
-    gitlab: 'bg-orange-600 text-white',  // ✅ Nuevo color
-  };
-  return colors[this.user().source];
 }
 ```
 
 ### ¡Listo! 🎉
 
-Ahora tienes GitLab integrado siguiendo el patrón Adapter. La arquitectura te permitió:
+La arquitectura te permitió:
 
-- ✅ No modificar código existente (excepto el tipo `User`)
-- ✅ No cambiar componentes ni templates
-- ✅ Agregar la nueva fuente de forma aislada
-- ✅ Mantener el manejo de errores consistente
+- ✅ No modificar código existente (solo agregar)
+- ✅ No tocar componentes ni templates
+- ✅ Agregar la fuente de forma aislada
+- ✅ Mantener el mismo manejo de errores
 
 ---
 
-## Recursos Adicionales
+## 📚 Recursos Adicionales
 
 ### Documentación Oficial
 
 - [Angular Documentation](https://angular.dev)
-- [Angular CLI Reference](https://angular.dev/tools/cli)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
 
 ### Patrones de Diseño
 
@@ -934,35 +524,24 @@ Ahora tienes GitLab integrado siguiendo el patrón Adapter. La arquitectura te p
 - [Standalone Components](https://angular.dev/guide/components/importing)
 - [Zoneless Change Detection](https://angular.dev/guide/experimental/zoneless)
 
-### Mejores Prácticas
-
-- [Angular Style Guide](https://angular.dev/style-guide)
-- [TypeScript Best Practices](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)
-
 ---
 
-## Licencia
+## 📝 Licencia
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 ---
 
-## Contribuir
+## 🤝 Contribuir
 
-Las contribuciones son bienvenidas. Por favor:
+Las contribuciones son bienvenidas:
 
-1. Haz fork del proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+1. Fork del proyecto
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
 3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
 
 ---
 
-## Contacto
-
-Para preguntas o sugerencias, por favor abre un issue en el repositorio.
-
----
-
-**¡Feliz codificación!** 🚀
+**Proyecto creado con fines educativos para demostrar la aplicación del Patrón Adapter en Angular** 🚀
