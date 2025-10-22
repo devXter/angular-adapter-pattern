@@ -1,11 +1,48 @@
 <section class="min-h-screen bg-gray-50 p-6">
   <div class="mx-auto max-w-6xl">
     <!-- Header -->
-    <header class="mb-6 rounded-lg bg-white p-6 shadow-lg">
-      <h1 class="mb-2 text-3xl font-bold text-gray-900">Patrón Adapter - Dashboard de usuarios</h1>
-      <p class="text-gray-600">
-        Angular 20+ con múltiples fuentes de datos adaptadas a un modelo unificado
-      </p>
+    <header
+      class="mb-6 overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 shadow-xl"
+    >
+      <div class="p-8">
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <div class="mb-3 flex items-center gap-3">
+              <span
+                class="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm"
+              >
+                Design Pattern
+              </span>
+              <span class="text-white/80">•</span>
+              <span class="text-sm text-white/90">Angular 20+</span>
+            </div>
+            <h1 class="mb-3 text-4xl font-bold text-white">
+              Patrón Adapter
+              <span class="block text-2xl font-normal text-white/90">Dashboard de usuarios</span>
+            </h1>
+            <p class="max-w-2xl text-white/90">
+              Múltiples fuentes de datos adaptadas a un modelo unificado
+            </p>
+          </div>
+          <div class="hidden text-6xl md:block">🔌</div>
+        </div>
+      </div>
+
+      <!-- Estadísticas -->
+      <div class="grid grid-cols-3 divide-x divide-gray-200 bg-white">
+        <div class="px-6 py-4 text-center">
+          <p class="text-3xl font-bold text-blue-600">{{ users().length }}</p>
+          <p class="text-sm text-gray-600">Usuarios</p>
+        </div>
+        <div class="px-6 py-4 text-center">
+          <p class="text-3xl font-bold text-purple-600">4</p>
+          <p class="text-sm text-gray-600">Fuentes</p>
+        </div>
+        <div class="px-6 py-4 text-center">
+          <p class="text-3xl font-bold text-green-600">100%</p>
+          <p class="text-sm text-gray-600">Adaptado</p>
+        </div>
+      </div>
     </header>
 
     <!-- Grid de usuarios -->
@@ -16,29 +53,88 @@
     </section>
 
     <!-- Información del patrón -->
-    <section class="rounded-lg bg-white p-6 shadow-lg">
-      <h2 class="mb-4 text-xl font-bold text-gray-900">💡 Conceptos clave del Adapter Pattern:</h2>
+    <section class="rounded-lg bg-white shadow-lg">
+      <div class="border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50 p-6">
+        <h2 class="flex items-center gap-2 text-2xl font-bold text-gray-900">
+          <span>💡</span>
+          <span>Conceptos clave del Adapter Pattern</span>
+        </h2>
+      </div>
 
-      <article class="grid gap-4 text-sm text-gray-700 md:grid-cols-2">
-        <div class="space-y-2">
-          <p><strong>✓ Fuentes de datos:</strong></p>
-          <ul class="ml-4 space-y-1">
-            <li>🟣 GitHub API (avatar_url, created_at, login)</li>
-            <li>🔵 API Interna (profileImage, registeredAt, fullName)</li>
-            <li>🟢 JSONPlaceholder (sin avatar ni fecha)</li>
+      <div class="grid gap-6 p-6 md:grid-cols-2">
+        <!-- Card: Fuentes de datos -->
+        <article
+          class="rounded-lg border-2 border-blue-100 bg-blue-50/50 p-5 transition-all hover:border-blue-300 hover:shadow-md"
+        >
+          <p class="mb-4 flex items-center gap-2 text-lg font-bold text-blue-900">
+            <span>📊</span>
+            <span>Fuentes de datos</span>
+          </p>
+          <ul class="space-y-3 text-sm text-gray-700">
+            <li class="flex items-start gap-3 rounded-md bg-white p-2">
+              <span class="text-lg">🟣</span>
+              <div>
+                <strong class="text-purple-700">GitHub API</strong>
+                <p class="text-xs text-gray-600">avatar_url, created_at, login</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-2">
+              <span class="text-lg">🔵</span>
+              <div>
+                <strong class="text-blue-700">API Interna</strong>
+                <p class="text-xs text-gray-600">profileImage, registeredAt, fullName</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-2">
+              <span class="text-lg">🔵</span>
+              <div>
+                <strong class="text-sky-700">Twitter API</strong>
+                <p class="text-xs text-gray-600">profile_image_url, created_at, screen_name</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-2">
+              <span class="text-lg">🟢</span>
+              <div>
+                <strong class="text-green-700">JSONPlaceholder</strong>
+                <p class="text-xs text-gray-600">sin avatar ni fecha</p>
+              </div>
+            </li>
           </ul>
-        </div>
+        </article>
 
-        <div class="space-y-2">
-          <p><strong>✓ Ventajas:</strong></p>
-          <ul class="ml-4 space-y-1">
-            <li>Modelo interno unificado (User)</li>
-            <li>Adapters encapsulan la conversión</li>
-            <li>Fácil agregar nuevas fuentes</li>
-            <li>Cambios en APIs externas solo afectan su Adapter</li>
+        <!-- Card: Ventajas -->
+        <article
+          class="rounded-lg border-2 border-purple-100 bg-purple-50/50 p-5 transition-all hover:border-purple-300 hover:shadow-md"
+        >
+          <p class="mb-4 flex items-center gap-2 text-lg font-bold text-purple-900">
+            <span>✨</span>
+            <span>Ventajas</span>
+          </p>
+          <ul class="space-y-3 text-sm text-gray-700">
+            <li class="flex items-start gap-3 rounded-md bg-white p-3">
+              <span class="text-lg text-green-600">✓</span>
+              <span>Modelo interno unificado (User)</span>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-3">
+              <span class="text-lg text-green-600">✓</span>
+              <span>Adapters encapsulan la conversión</span>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-3">
+              <span class="text-lg text-green-600">✓</span>
+              <span>Fácil agregar nuevas fuentes</span>
+            </li>
+            <li class="flex items-start gap-3 rounded-md bg-white p-3">
+              <span class="text-lg text-green-600">✓</span>
+              <span>Cambios en APIs externas solo afectan su Adapter</span>
+            </li>
           </ul>
-        </div>
-      </article>
+        </article>
+      </div>
+
+      <div class="border-t border-gray-200 bg-gray-50 px-6 py-4 text-center text-sm text-gray-600">
+        💡 <strong>Tip:</strong> Este patrón permite trabajar con múltiples APIs sin modificar el
+        código del componente
+      </div>
     </section>
   </div>
 </section>
