@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@ang
 import { UserData } from './services/user-data';
 import { User } from '../../core/models/user';
 import { UserCard } from './components/user-card/user-card';
+import { Header } from '../shared/components/header/header';
 
 @Component({
   selector: 'app-user-management',
-  imports: [UserCard],
+  imports: [UserCard, Header],
   providers: [UserData],
   templateUrl: './user-management.html',
   styleUrl: './user-management.css',
