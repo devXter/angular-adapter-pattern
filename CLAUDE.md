@@ -69,6 +69,8 @@ The core of this application is the **Adapter Pattern**, which transforms hetero
 2. **BaseAdapter** (`src/app/core/adapters/base.adapter.ts`)
    - Abstract class with shared utility methods for validation and transformation
    - **All concrete adapters extend this class**
+   - **IMPORTANT**: Uses exclusively static methods - adapters are never instantiated
+   - This design choice ensures stateless, pure transformation functions
    - Provides methods like:
      - `requireField()` - Validates required fields
      - `isValidEmail()` - Email validation
@@ -76,6 +78,7 @@ The core of this application is the **Adapter Pattern**, which transforms hetero
      - `sanitizeText()` - Text sanitization
      - `normalizeEmail()` - Email normalization
      - `parseNumber()` - Safe number parsing
+     - `getValueOrDefault()` - Provides fallback values
 
 3. **Concrete Adapters** (`src/app/core/adapters/`)
    - `GithubUserAdapter` - Transforms GitHub API DTOs (includes `joinedDate` from `created_at`)
@@ -188,18 +191,32 @@ To add a new external data source (e.g., GitLab):
 The application implements **multi-level error handling**:
 
 1. **Adapter Level** - Validates data and throws descriptive errors
-2. **Service Level** - Catches adapter errors in `adaptWithErrorHandling()`, logs them, and continues processing other sources
-3. **Aggregation Level** - Collects all errors across sources and stores in signals
+   - Uses `requireField()` for fail-fast validation
+   - Throws errors with clear messages including adapter name and field name
+   - Example: `[GithubUserAdapter] Missing or invalid required field: id`
 
-**Key principle**: A failure in one data source should never prevent other sources from being processed.
+2. **Service Level** - Catches adapter errors in `adaptWithErrorHandling()`, logs them, and continues processing other sources
+   - Each data source is processed independently in its own try-catch block
+   - Errors are collected in an array for later inspection
+   - Successful adaptations continue even if some items fail
+
+3. **Aggregation Level** - Collects all errors across sources and stores in signals
+   - Errors signal maintains a list of all failures
+   - Users signal only contains successfully adapted data
+
+**Key principle**: A failure in one data source should never prevent other sources from being processed. This resilience is critical for the multi-source architecture.
 
 ### Adapter Design Principles
 
 - **Static Methods Only** - Adapters use static methods; they are never instantiated
+  - This ensures adapters are stateless and pure
+  - Prevents accidental state mutation
+  - Makes testing simpler (no need to manage instances)
 - **Single Responsibility** - Each adapter handles only one data source
 - **Shared Utilities** - Common validation/transformation logic lives in `BaseAdapter`
 - **Type Safety** - Strong TypeScript typing throughout with no `any` types
 - **Fail-Fast Validation** - Required fields validated immediately via `requireField()`
+- **Defensive Programming** - All helper methods handle null/undefined gracefully
 
 ### File Naming Conventions
 
@@ -223,18 +240,75 @@ Tests use **Jasmine** and **Karma**:
 - Component tests should verify template rendering and signal updates
 - Service tests should verify orchestration and error handling
 
+### Test File Locations
+- Adapter tests: `src/app/core/adapters/*.spec.ts` (if created)
+- Service tests: `src/app/features/user-management/services/*.spec.ts`
+- Component tests: `src/app/features/user-management/components/**/*.spec.ts`
+
+### Writing Adapter Tests
+
+When creating tests for adapters, focus on:
+1. **Valid data transformation** - Ensure correct mapping of all fields
+2. **Missing required fields** - Verify `requireField()` throws errors
+3. **Edge cases** - Test with null, undefined, empty strings
+4. **Email validation** - Test both valid and invalid email formats
+5. **Date parsing** - Test various date formats and invalid dates
+6. **Fallback behavior** - Verify defaults are used when optional fields are missing
+
+Example test structure:
+```typescript
+describe('GithubUserAdapter', () => {
+  it('should transform valid DTO to User', () => {
+    const dto: GithubUserDto = { /* valid data */ };
+    const result = GithubUserAdapter.adapt(dto);
+    expect(result.source).toBe('github');
+    // ... more assertions
+  });
+
+  it('should throw error when required field is missing', () => {
+    const dto: any = { /* missing id */ };
+    expect(() => GithubUserAdapter.adapt(dto)).toThrow();
+  });
+});
+```
+
 ## Styling
 
 - **Tailwind CSS 4.1.14** - Utility-first CSS framework
 - **PostCSS** - CSS transformation
+- **Prettier with Tailwind plugin** - Automatic class sorting
 - Global styles in `src/styles.css`
 - Component-specific styles in component CSS files
+
+### Prettier Configuration
+The project has custom Prettier settings for Tailwind:
+- Automatically sorts Tailwind classes
+- Handles Angular-specific attributes (`ngClass`, `ngStyle`, `[class]`)
+- Uses Angular parser for HTML templates
 
 ## TypeScript Configuration
 
 - **Strict mode enabled** - No implicit any, strict null checks, etc.
+- **Additional strict flags**:
+  - `noImplicitOverride: true` - Requires explicit override keyword
+  - `noPropertyAccessFromIndexSignature: true` - Prevents unsafe index access
+  - `noImplicitReturns: true` - All code paths must return a value
+  - `noFallthroughCasesInSwitch: true` - Prevents switch fallthrough bugs
 - **ES2022 target** - Modern JavaScript features
 - **Version 5.9.2** - Latest stable TypeScript
+- **Angular Compiler Options**:
+  - `strictTemplates: true` - Type checking in templates
+  - `strictInjectionParameters: true` - Strict DI validation
+  - `strictInputAccessModifiers: true` - Enforces input access modifiers
+
+### Implications for Development
+
+With strict mode enabled:
+- You must explicitly type all function parameters and return values
+- Cannot use `any` type without explicit annotation
+- Null and undefined are distinct types
+- Must handle all possible code paths in functions
+- Template expressions are type-checked like TypeScript code
 
 ## Project Context
 
