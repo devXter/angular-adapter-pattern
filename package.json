@@ -1,6 +1,10 @@
 {
   "name": "angular-adapter-pattern",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=20.19.0 || >=22.12.0",
+    "npm": ">=10.8.2"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
